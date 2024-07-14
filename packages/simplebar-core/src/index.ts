@@ -190,7 +190,7 @@ export default class SimpleBarCore {
 
     if (typeof this.el !== 'object' || !this.el.nodeName) {
       throw new Error(
-        `Argument passed to SimpleBar must be an HTML element instead of ${this.el}`
+        `Argument passed to SimpleBar must be an HTML element instead of ${this.el}`,
       );
     }
 
@@ -198,7 +198,7 @@ export default class SimpleBarCore {
     this.onWindowResize = debounce(this._onWindowResize, 64, { leading: true });
     this.onStopScrolling = debounce(
       this._onStopScrolling,
-      this.stopScrollDelay
+      this.stopScrollDelay,
     );
     this.onMouseEntered = debounce(this._onMouseEntered, this.stopScrollDelay);
 
@@ -307,7 +307,7 @@ export default class SimpleBarCore {
   initDOM() {
     // assume that element has his DOM already initiated
     this.wrapperEl = this.el.querySelector(
-      classNamesToQuery(this.classNames.wrapper)
+      classNamesToQuery(this.classNames.wrapper),
     );
     this.contentWrapperEl =
       this.options.scrollableNode ||
@@ -317,42 +317,42 @@ export default class SimpleBarCore {
       this.el.querySelector(classNamesToQuery(this.classNames.contentEl));
 
     this.offsetEl = this.el.querySelector(
-      classNamesToQuery(this.classNames.offset)
+      classNamesToQuery(this.classNames.offset),
     );
     this.maskEl = this.el.querySelector(
-      classNamesToQuery(this.classNames.mask)
+      classNamesToQuery(this.classNames.mask),
     );
 
     this.placeholderEl = this.findChild(
       this.wrapperEl,
-      classNamesToQuery(this.classNames.placeholder)
+      classNamesToQuery(this.classNames.placeholder),
     );
     this.heightAutoObserverWrapperEl = this.el.querySelector(
-      classNamesToQuery(this.classNames.heightAutoObserverWrapperEl)
+      classNamesToQuery(this.classNames.heightAutoObserverWrapperEl),
     );
     this.heightAutoObserverEl = this.el.querySelector(
-      classNamesToQuery(this.classNames.heightAutoObserverEl)
+      classNamesToQuery(this.classNames.heightAutoObserverEl),
     );
     this.axis.x.track.el = this.findChild(
       this.el,
       `${classNamesToQuery(this.classNames.track)}${classNamesToQuery(
-        this.classNames.horizontal
-      )}`
+        this.classNames.horizontal,
+      )}`,
     );
     this.axis.y.track.el = this.findChild(
       this.el,
       `${classNamesToQuery(this.classNames.track)}${classNamesToQuery(
-        this.classNames.vertical
-      )}`
+        this.classNames.vertical,
+      )}`,
     );
 
     this.axis.x.scrollbar.el =
       this.axis.x.track.el?.querySelector(
-        classNamesToQuery(this.classNames.scrollbar)
+        classNamesToQuery(this.classNames.scrollbar),
       ) || null;
     this.axis.y.scrollbar.el =
       this.axis.y.track.el?.querySelector(
-        classNamesToQuery(this.classNames.scrollbar)
+        classNamesToQuery(this.classNames.scrollbar),
       ) || null;
 
     if (!this.options.autoHide) {
@@ -520,7 +520,7 @@ export default class SimpleBarCore {
     // Calculate new height/position of drag handle.
     scrollbarSize = Math.max(
       ~~(scrollbarRatio * trackSize),
-      this.options.scrollbarMinSize
+      this.options.scrollbarMinSize,
     );
 
     if (this.options.scrollbarMaxSize) {
@@ -571,9 +571,7 @@ export default class SimpleBarCore {
         : handleOffset;
 
     scrollbar.el.style.transform =
-      axis === 'x'
-        ? `translate3d(${handleOffset}px, 0, 0)`
-        : `translate3d(0, ${handleOffset}px, 0)`;
+      axis === 'x' ? `left(${handleOffset}px)` : `top(${handleOffset})`;
   }
 
   toggleTrackVisibility(axis: Axis = 'y') {
@@ -861,7 +859,7 @@ export default class SimpleBarCore {
       this.contentWrapperEl?.[this.axis[this.draggedAxis].scrollSizeAttr] ?? 0;
     const hostSize = parseInt(
       this.elStyles?.[this.axis[this.draggedAxis].sizeAttr] ?? '0px',
-      10
+      10,
     );
 
     e.preventDefault();
@@ -952,7 +950,7 @@ export default class SimpleBarCore {
     const scrollbarOffset = scrollbar.rect?.[this.axis[axis].offsetAttr] ?? 0;
     const hostSize = parseInt(
       this.elStyles?.[this.axis[axis].sizeAttr] ?? '0px',
-      10
+      10,
     );
     let scrolled = this.contentWrapperEl[this.axis[axis].scrollOffsetAttr];
     const t =
@@ -1057,7 +1055,7 @@ export default class SimpleBarCore {
       el.mozMatchesSelector ||
       el.msMatchesSelector;
     return Array.prototype.filter.call(el.children, (child) =>
-      matches.call(child, query)
+      matches.call(child, query),
     )[0];
   }
 }

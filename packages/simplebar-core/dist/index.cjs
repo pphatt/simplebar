@@ -667,9 +667,7 @@
                     ? -handleOffset + (trackSize - scrollbar.size)
                     : handleOffset;
             scrollbar.el.style.transform =
-                axis === 'x'
-                    ? "translate3d(".concat(handleOffset, "px, 0, 0)")
-                    : "translate3d(0, ".concat(handleOffset, "px, 0)");
+                axis === 'x' ? "left(".concat(handleOffset, "px)") : "top(".concat(handleOffset, ")");
         };
         SimpleBarCore.prototype.toggleTrackVisibility = function (axis) {
             if (axis === void 0) { axis = 'y'; }
