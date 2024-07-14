@@ -571,7 +571,7 @@ export default class SimpleBarCore {
         : handleOffset;
 
     scrollbar.el.style.transform =
-      axis === 'x' ? `left(${handleOffset}px)` : `top(${handleOffset}px)`;
+      axis === 'x' ? `left: ${handleOffset}px` : `top: ${handleOffset}px`;
   }
 
   toggleTrackVisibility(axis: Axis = 'y') {

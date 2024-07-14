@@ -663,7 +663,7 @@ var SimpleBarCore = /** @class */ (function () {
                 ? -handleOffset + (trackSize - scrollbar.size)
                 : handleOffset;
         scrollbar.el.style.transform =
-            axis === 'x' ? "left(".concat(handleOffset, "px)") : "top(".concat(handleOffset, "px)");
+            axis === 'x' ? "left: ".concat(handleOffset, "px") : "top: ".concat(handleOffset, "px");
     };
     SimpleBarCore.prototype.toggleTrackVisibility = function (axis) {
         if (axis === void 0) { axis = 'y'; }
