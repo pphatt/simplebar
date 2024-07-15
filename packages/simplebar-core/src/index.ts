@@ -138,7 +138,7 @@ export default class SimpleBarCore {
       track: 'simplebar-track',
       heightAutoObserverWrapperEl: 'simplebar-height-auto-observer-wrapper',
       heightAutoObserverEl: 'simplebar-height-auto-observer',
-      visible: 'simplebar-visible',
+      visible: 'visible',
       horizontal: 'simplebar-horizontal',
       vertical: 'simplebar-vertical',
       hover: 'simplebar-hover',
