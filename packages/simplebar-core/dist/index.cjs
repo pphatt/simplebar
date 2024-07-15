@@ -184,7 +184,6 @@
                 }
                 if (!_this.isScrolling) {
                     _this.isScrolling = true;
-                    addClasses(_this.el, _this.classNames.scrolling);
                 }
                 _this.showScrollbar('x');
                 _this.showScrollbar('y');
@@ -203,7 +202,6 @@
                 _this.scrollYTicking = false;
             };
             this._onStopScrolling = function () {
-                removeClasses(_this.el, _this.classNames.scrolling);
                 if (_this.options.autoHide) {
                     _this.hideScrollbar('x');
                     _this.hideScrollbar('y');
@@ -915,7 +913,6 @@
                 vertical: 'simplebar-vertical',
                 hover: 'simplebar-hover',
                 dragging: 'simplebar-dragging',
-                scrolling: 'simplebar-scrolling',
                 scrollable: 'simplebar-scrollable',
                 mouseEntered: 'simplebar-mouse-entered'
             },

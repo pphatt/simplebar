@@ -143,7 +143,6 @@ export default class SimpleBarCore {
       vertical: 'simplebar-vertical',
       hover: 'simplebar-hover',
       dragging: 'simplebar-dragging',
-      scrolling: 'simplebar-scrolling',
       scrollable: 'simplebar-scrollable',
       mouseEntered: 'simplebar-mouse-entered',
     },
@@ -646,7 +645,6 @@ export default class SimpleBarCore {
 
     if (!this.isScrolling) {
       this.isScrolling = true;
-      addClasses(this.el, this.classNames.scrolling);
     }
 
     this.showScrollbar('x');
@@ -672,7 +670,6 @@ export default class SimpleBarCore {
   };
 
   _onStopScrolling = () => {
-    removeClasses(this.el, this.classNames.scrolling);
     if (this.options.autoHide) {
       this.hideScrollbar('x');
       this.hideScrollbar('y');
