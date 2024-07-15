@@ -203,7 +203,6 @@
             };
             this._onStopScrolling = function () {
                 if (_this.options.autoHide) {
-                    console.log('Auto hide: ', _this.options.autoHide);
                     _this.hideScrollbar('x');
                     _this.hideScrollbar('y');
                 }
@@ -705,7 +704,6 @@
         };
         SimpleBarCore.prototype.hideScrollbar = function (axis) {
             if (axis === void 0) { axis = 'y'; }
-            console.log("isScrolling: ".concat(this.isScrolling));
             if (this.isDragging)
                 return;
             if (this.axis[axis].isOverflowing && this.axis[axis].scrollbar.isVisible) {
@@ -745,10 +743,6 @@
             }
             else {
                 removeClasses(currentAxis.track.el, this.classNames.hover);
-                if (this.options.autoHide) {
-                    console.log("onMouseMoveForAxis called");
-                    this.hideScrollbar(axis);
-                }
             }
         };
         SimpleBarCore.prototype.onMouseLeaveForAxis = function (axis) {
@@ -756,7 +750,6 @@
             removeClasses(this.axis[axis].track.el, this.classNames.hover);
             removeClasses(this.axis[axis].scrollbar.el, this.classNames.hover);
             if (this.options.autoHide) {
-                console.log("onMouseLeaveForAxis called");
                 this.hideScrollbar(axis);
             }
         };

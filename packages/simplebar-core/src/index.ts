@@ -607,8 +607,6 @@ export default class SimpleBarCore {
   }
 
   hideScrollbar(axis: Axis = 'y') {
-    console.log(`isScrolling: ${this.isScrolling}`);
-
     if (this.isDragging) return;
     if (this.axis[axis].isOverflowing && this.axis[axis].scrollbar.isVisible) {
       removeClasses(this.axis[axis].scrollbar.el, this.classNames.visible);
@@ -673,8 +671,6 @@ export default class SimpleBarCore {
 
   _onStopScrolling = () => {
     if (this.options.autoHide) {
-      console.log('Auto hide: ', this.options.autoHide);
-
       this.hideScrollbar('x');
       this.hideScrollbar('y');
     }
@@ -733,11 +729,6 @@ export default class SimpleBarCore {
       }
     } else {
       removeClasses(currentAxis.track.el, this.classNames.hover);
-      if (this.options.autoHide) {
-        console.log("onMouseMoveForAxis called")
-
-        this.hideScrollbar(axis);
-      }
     }
   }
 
@@ -760,8 +751,6 @@ export default class SimpleBarCore {
     removeClasses(this.axis[axis].track.el, this.classNames.hover);
     removeClasses(this.axis[axis].scrollbar.el, this.classNames.hover);
     if (this.options.autoHide) {
-      console.log("onMouseLeaveForAxis called")
-
       this.hideScrollbar(axis);
     }
   }
