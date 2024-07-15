@@ -704,7 +704,7 @@
         };
         SimpleBarCore.prototype.hideScrollbar = function (axis) {
             if (axis === void 0) { axis = 'y'; }
-            if (this.isDragging)
+            if (this.isDragging || this.isScrolling)
                 return;
             if (this.axis[axis].isOverflowing && this.axis[axis].scrollbar.isVisible) {
                 removeClasses(this.axis[axis].scrollbar.el, this.classNames.visible);
