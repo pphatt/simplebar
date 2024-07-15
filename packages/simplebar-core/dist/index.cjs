@@ -206,8 +206,8 @@
                     console.log('Auto hide: ', _this.options.autoHide);
                     _this.hideScrollbar('x');
                     _this.hideScrollbar('y');
+                    _this.isScrolling = false;
                 }
-                _this.isScrolling = false;
             };
             this.onMouseEnter = function () {
                 if (!_this.isMouseEntering) {

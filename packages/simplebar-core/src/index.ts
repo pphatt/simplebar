@@ -677,8 +677,9 @@ export default class SimpleBarCore {
 
       this.hideScrollbar('x');
       this.hideScrollbar('y');
+
+      this.isScrolling = false;
     }
-    this.isScrolling = false;
   };
 
   onMouseEnter = () => {
