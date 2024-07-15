@@ -1,6 +1,6 @@
 {
   "name": "simplebar",
-  "version": "1.0.42",
+  "version": "1.0.42-test-01",
   "private": true,
   "workspaces": {
     "packages": [

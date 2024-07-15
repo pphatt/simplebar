@@ -199,6 +199,7 @@ var SimpleBarCore = /** @class */ (function () {
         };
         this._onStopScrolling = function () {
             if (_this.options.autoHide) {
+                console.log('Auto hide: ', _this.options.autoHide);
                 _this.hideScrollbar('x');
                 _this.hideScrollbar('y');
             }
@@ -700,7 +701,8 @@ var SimpleBarCore = /** @class */ (function () {
     };
     SimpleBarCore.prototype.hideScrollbar = function (axis) {
         if (axis === void 0) { axis = 'y'; }
-        if (this.isDragging || this.isScrolling)
+        console.log("isScrolling: ".concat(this.isScrolling));
+        if (this.isDragging)
             return;
         if (this.axis[axis].isOverflowing && this.axis[axis].scrollbar.isVisible) {
             removeClasses(this.axis[axis].scrollbar.el, this.classNames.visible);
