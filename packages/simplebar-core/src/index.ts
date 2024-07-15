@@ -91,7 +91,7 @@ export default class SimpleBarCore {
   draggedAxis?: Axis;
   removePreventClickId: null | number = null;
   minScrollbarWidth = 20;
-  stopScrollDelay = 4000;
+  stopScrollDelay = 2500;
   isScrolling = false;
   isMouseEntering = false;
   isDragging = false;
