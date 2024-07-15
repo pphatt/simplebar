@@ -143,7 +143,7 @@
             var _this = this;
             this.removePreventClickId = null;
             this.minScrollbarWidth = 20;
-            this.stopScrollDelay = 4000;
+            this.stopScrollDelay = 8000;
             this.isScrolling = false;
             this.isMouseEntering = false;
             this.isDragging = false;
