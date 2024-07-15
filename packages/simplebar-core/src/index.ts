@@ -144,7 +144,6 @@ export default class SimpleBarCore {
       hover: 'simplebar-hover',
       dragging: 'simplebar-dragging',
       scrollable: 'simplebar-scrollable',
-      mouseEntered: 'simplebar-mouse-entered',
     },
     scrollableNode: null,
     contentNode: null,
@@ -193,7 +192,7 @@ export default class SimpleBarCore {
       );
     }
 
-    this.onMouseMove = throttle(this._onMouseMove, 64);
+    this.onMouseMove = throttle(this._onMouseMove, 1000);
     this.onWindowResize = debounce(this._onWindowResize, 64, { leading: true });
     this.onStopScrolling = debounce(
       this._onStopScrolling,
@@ -684,20 +683,29 @@ export default class SimpleBarCore {
 
   onMouseEnter = () => {
     if (!this.isMouseEntering) {
-      addClasses(this.el, this.classNames.mouseEntered);
       this.showScrollbar('x');
       this.showScrollbar('y');
       this.isMouseEntering = true;
     }
+
     this.onMouseEntered();
   };
 
+  /*
+   * _onMouseEntered would wait a stopScrollDelay of time to resolve the debounce.
+   *
+   * For instance, despite you "enter" in and "leave" at the same time the _onMouseEntered would not be fired after a stopScrollDelay of time
+   * so the this.isMouseEntering cannot be re-assigned which make the onMouseEnter() cannot show the scrollbar("y") which make it UX experience
+   * decline.
+   *
+   * So the fix is adding a "this.isMouseEntering = false" in onMouseLeave
+   * */
   _onMouseEntered = () => {
-    removeClasses(this.el, this.classNames.mouseEntered);
     if (this.options.autoHide) {
       this.hideScrollbar('x');
       this.hideScrollbar('y');
     }
+
     this.isMouseEntering = false;
   };
 
@@ -749,6 +757,8 @@ export default class SimpleBarCore {
 
     this.mouseX = -1;
     this.mouseY = -1;
+
+    this.isMouseEntering = false;
   };
 
   onMouseLeaveForAxis(axis: Axis = 'y') {
