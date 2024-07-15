@@ -700,7 +700,7 @@ var SimpleBarCore = /** @class */ (function () {
     };
     SimpleBarCore.prototype.hideScrollbar = function (axis) {
         if (axis === void 0) { axis = 'y'; }
-        if (this.isDragging || this.isScrolling)
+        if (this.isDragging)
             return;
         if (this.axis[axis].isOverflowing && this.axis[axis].scrollbar.isVisible) {
             removeClasses(this.axis[axis].scrollbar.el, this.classNames.visible);
@@ -739,9 +739,6 @@ var SimpleBarCore = /** @class */ (function () {
         }
         else {
             removeClasses(currentAxis.track.el, this.classNames.hover);
-            if (this.options.autoHide) {
-                this.hideScrollbar(axis);
-            }
         }
     };
     SimpleBarCore.prototype.onMouseLeaveForAxis = function (axis) {
