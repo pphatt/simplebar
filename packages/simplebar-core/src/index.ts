@@ -764,9 +764,6 @@ export default class SimpleBarCore {
   onMouseLeaveForAxis(axis: Axis = 'y') {
     removeClasses(this.axis[axis].track.el, this.classNames.hover);
     removeClasses(this.axis[axis].scrollbar.el, this.classNames.hover);
-    if (this.options.autoHide) {
-      this.hideScrollbar(axis);
-    }
   }
 
   _onWindowResize = () => {

@@ -762,9 +762,6 @@
             if (axis === void 0) { axis = 'y'; }
             removeClasses(this.axis[axis].track.el, this.classNames.hover);
             removeClasses(this.axis[axis].scrollbar.el, this.classNames.hover);
-            if (this.options.autoHide) {
-                this.hideScrollbar(axis);
-            }
         };
         /**
          * on scrollbar handle drag movement starts
