@@ -677,9 +677,9 @@ export default class SimpleBarCore {
 
       this.hideScrollbar('x');
       this.hideScrollbar('y');
-
-      this.isScrolling = false;
     }
+
+    this.isScrolling = false;
   };
 
   onMouseEnter = () => {
@@ -734,6 +734,8 @@ export default class SimpleBarCore {
     } else {
       removeClasses(currentAxis.track.el, this.classNames.hover);
       if (this.options.autoHide) {
+        console.log("onMouseMoveForAxis called")
+
         this.hideScrollbar(axis);
       }
     }
@@ -758,6 +760,8 @@ export default class SimpleBarCore {
     removeClasses(this.axis[axis].track.el, this.classNames.hover);
     removeClasses(this.axis[axis].scrollbar.el, this.classNames.hover);
     if (this.options.autoHide) {
+      console.log("onMouseLeaveForAxis called")
+
       this.hideScrollbar(axis);
     }
   }

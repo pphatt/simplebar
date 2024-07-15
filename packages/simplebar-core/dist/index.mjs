@@ -202,8 +202,8 @@ var SimpleBarCore = /** @class */ (function () {
                 console.log('Auto hide: ', _this.options.autoHide);
                 _this.hideScrollbar('x');
                 _this.hideScrollbar('y');
-                _this.isScrolling = false;
             }
+            _this.isScrolling = false;
         };
         this.onMouseEnter = function () {
             if (!_this.isMouseEntering) {
@@ -742,6 +742,7 @@ var SimpleBarCore = /** @class */ (function () {
         else {
             removeClasses(currentAxis.track.el, this.classNames.hover);
             if (this.options.autoHide) {
+                console.log("onMouseMoveForAxis called");
                 this.hideScrollbar(axis);
             }
         }
@@ -751,6 +752,7 @@ var SimpleBarCore = /** @class */ (function () {
         removeClasses(this.axis[axis].track.el, this.classNames.hover);
         removeClasses(this.axis[axis].scrollbar.el, this.classNames.hover);
         if (this.options.autoHide) {
+            console.log("onMouseLeaveForAxis called");
             this.hideScrollbar(axis);
         }
     };

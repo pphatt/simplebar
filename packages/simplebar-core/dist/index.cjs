@@ -206,8 +206,8 @@
                     console.log('Auto hide: ', _this.options.autoHide);
                     _this.hideScrollbar('x');
                     _this.hideScrollbar('y');
-                    _this.isScrolling = false;
                 }
+                _this.isScrolling = false;
             };
             this.onMouseEnter = function () {
                 if (!_this.isMouseEntering) {
@@ -746,6 +746,7 @@
             else {
                 removeClasses(currentAxis.track.el, this.classNames.hover);
                 if (this.options.autoHide) {
+                    console.log("onMouseMoveForAxis called");
                     this.hideScrollbar(axis);
                 }
             }
@@ -755,6 +756,7 @@
             removeClasses(this.axis[axis].track.el, this.classNames.hover);
             removeClasses(this.axis[axis].scrollbar.el, this.classNames.hover);
             if (this.options.autoHide) {
+                console.log("onMouseLeaveForAxis called");
                 this.hideScrollbar(axis);
             }
         };
