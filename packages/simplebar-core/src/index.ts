@@ -572,7 +572,11 @@ export default class SimpleBarCore {
     if (axis === 'x') {
       scrollbar.el.style.left = `${handleOffset}px`;
     } else {
-      scrollbar.el.style.top = `${handleOffset}px`;
+      if (handleOffset === 0) {
+        scrollbar.el.style.top = `2px`;
+      } else {
+        scrollbar.el.style.top = `${handleOffset}px`;
+      }
     }
   }
 

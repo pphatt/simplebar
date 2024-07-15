@@ -664,7 +664,12 @@ var SimpleBarCore = /** @class */ (function () {
             scrollbar.el.style.left = "".concat(handleOffset, "px");
         }
         else {
-            scrollbar.el.style.top = "".concat(handleOffset, "px");
+            if (handleOffset === 0) {
+                scrollbar.el.style.top = "2px";
+            }
+            else {
+                scrollbar.el.style.top = "".concat(handleOffset, "px");
+            }
         }
     };
     SimpleBarCore.prototype.toggleTrackVisibility = function (axis) {
