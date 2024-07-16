@@ -29,11 +29,8 @@ type ClassNames = {
     visible: string;
     horizontal: string;
     vertical: string;
-    hover: string;
     dragging: string;
-    scrolling: string;
     scrollable: string;
-    mouseEntered: string;
 };
 type Axis = 'x' | 'y';
 type AxisProps = {
@@ -149,7 +146,6 @@ export default class SimpleBarCore {
     _onMouseMove: (e: any) => void;
     onMouseMoveForAxis(axis?: Axis): void;
     onMouseLeave: () => void;
-    onMouseLeaveForAxis(axis?: Axis): void;
     _onWindowResize: () => void;
     onPointerEvent: (e: any) => void;
     /**
@@ -183,7 +179,7 @@ export default class SimpleBarCore {
      */
     unMount(): void;
     /**
-     * Check if mouse is within bounds
+     * Check if mouse is within bounds (inside the track)
      */
     isWithinBounds(bbox: DOMRect): boolean;
     /**

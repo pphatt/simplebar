@@ -32,11 +32,8 @@ type ClassNames = {
   visible: string;
   horizontal: string;
   vertical: string;
-  hover: string;
   dragging: string;
-  scrolling: string;
   scrollable: string;
-  mouseEntered: string;
 };
 
 type Axis = 'x' | 'y';
@@ -141,7 +138,6 @@ export default class SimpleBarCore {
       visible: 'visible',
       horizontal: 'horizontal',
       vertical: 'vertical',
-      hover: 'simplebar-hover',
       dragging: 'simplebar-dragging',
       scrollable: 'simplebar-scrollable',
     },
@@ -729,42 +725,16 @@ export default class SimpleBarCore {
     currentAxis.track.rect = currentAxis.track.el.getBoundingClientRect();
     currentAxis.scrollbar.rect =
       currentAxis.scrollbar.el.getBoundingClientRect();
-
-    if (this.isWithinBounds(currentAxis.track.rect)) {
-      this.showScrollbar(axis);
-      addClasses(currentAxis.track.el, this.classNames.hover);
-
-      if (this.isWithinBounds(currentAxis.scrollbar.rect)) {
-        addClasses(currentAxis.scrollbar.el, this.classNames.hover);
-      } else {
-        removeClasses(currentAxis.scrollbar.el, this.classNames.hover);
-      }
-    } else {
-      removeClasses(currentAxis.track.el, this.classNames.hover);
-    }
   }
 
   onMouseLeave = () => {
     (this.onMouseMove as DebouncedFunc<any>).cancel();
-
-    if (this.axis.x.isOverflowing || this.axis.x.forceVisible) {
-      this.onMouseLeaveForAxis('x');
-    }
-
-    if (this.axis.y.isOverflowing || this.axis.y.forceVisible) {
-      this.onMouseLeaveForAxis('y');
-    }
 
     this.mouseX = -1;
     this.mouseY = -1;
 
     this.isMouseEntering = false;
   };
-
-  onMouseLeaveForAxis(axis: Axis = 'y') {
-    removeClasses(this.axis[axis].track.el, this.classNames.hover);
-    removeClasses(this.axis[axis].scrollbar.el, this.classNames.hover);
-  }
 
   _onWindowResize = () => {
     // Recalculate scrollbarWidth in case it's a zoom
@@ -1043,7 +1013,7 @@ export default class SimpleBarCore {
   }
 
   /**
-   * Check if mouse is within bounds
+   * Check if mouse is within bounds (inside the track)
    */
   isWithinBounds(bbox: DOMRect) {
     return (

@@ -240,12 +240,6 @@ var SimpleBarCore = /** @class */ (function () {
         };
         this.onMouseLeave = function () {
             _this.onMouseMove.cancel();
-            if (_this.axis.x.isOverflowing || _this.axis.x.forceVisible) {
-                _this.onMouseLeaveForAxis('x');
-            }
-            if (_this.axis.y.isOverflowing || _this.axis.y.forceVisible) {
-                _this.onMouseLeaveForAxis('y');
-            }
             _this.mouseX = -1;
             _this.mouseY = -1;
             _this.isMouseEntering = false;
@@ -740,24 +734,6 @@ var SimpleBarCore = /** @class */ (function () {
         currentAxis.track.rect = currentAxis.track.el.getBoundingClientRect();
         currentAxis.scrollbar.rect =
             currentAxis.scrollbar.el.getBoundingClientRect();
-        if (this.isWithinBounds(currentAxis.track.rect)) {
-            this.showScrollbar(axis);
-            addClasses(currentAxis.track.el, this.classNames.hover);
-            if (this.isWithinBounds(currentAxis.scrollbar.rect)) {
-                addClasses(currentAxis.scrollbar.el, this.classNames.hover);
-            }
-            else {
-                removeClasses(currentAxis.scrollbar.el, this.classNames.hover);
-            }
-        }
-        else {
-            removeClasses(currentAxis.track.el, this.classNames.hover);
-        }
-    };
-    SimpleBarCore.prototype.onMouseLeaveForAxis = function (axis) {
-        if (axis === void 0) { axis = 'y'; }
-        removeClasses(this.axis[axis].track.el, this.classNames.hover);
-        removeClasses(this.axis[axis].scrollbar.el, this.classNames.hover);
     };
     /**
      * on scrollbar handle drag movement starts
@@ -872,7 +848,7 @@ var SimpleBarCore = /** @class */ (function () {
         this.removeListeners();
     };
     /**
-     * Check if mouse is within bounds
+     * Check if mouse is within bounds (inside the track)
      */
     SimpleBarCore.prototype.isWithinBounds = function (bbox) {
         return (this.mouseX >= bbox.left &&
@@ -914,7 +890,6 @@ var SimpleBarCore = /** @class */ (function () {
             visible: 'visible',
             horizontal: 'horizontal',
             vertical: 'vertical',
-            hover: 'simplebar-hover',
             dragging: 'simplebar-dragging',
             scrollable: 'simplebar-scrollable'
         },
