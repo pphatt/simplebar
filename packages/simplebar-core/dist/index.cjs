@@ -817,8 +817,8 @@
                 visible: 'visible',
                 horizontal: 'horizontal',
                 vertical: 'vertical',
-                scrollable: 'simplebar-scrollable',
-                dragging: 'dragging'
+                dragging: 'dragging',
+                scrollable: 'scrollable-area--suppress-scroll'
             },
             scrollableNode: null,
             contentNode: null,
