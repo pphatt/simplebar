@@ -133,7 +133,6 @@ export default class SimpleBarCore {
     toggleTrackVisibility(axis?: Axis): void;
     showScrollbar(axis?: Axis): void;
     hideScrollbar(axis?: Axis): void;
-    hideNativeScrollbar(): void;
     /**
      * On scroll event handling
      */
@@ -164,7 +163,6 @@ export default class SimpleBarCore {
      * Handler to ignore click events during drag
      */
     preventClick: (e: any) => void;
-    onTrackClick(e: any, axis?: Axis): void;
     /**
      * Getter for content element
      */

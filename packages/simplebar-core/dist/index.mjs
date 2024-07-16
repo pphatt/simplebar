@@ -247,7 +247,6 @@ var SimpleBarCore = /** @class */ (function () {
         this._onWindowResize = function () {
             // Recalculate scrollbarWidth in case it's a zoom
             _this.scrollbarWidth = _this.getScrollbarWidth();
-            _this.hideNativeScrollbar();
         };
         this.onPointerEvent = function (e) {
             if (!_this.axis.x.track.el ||
@@ -275,18 +274,12 @@ var SimpleBarCore = /** @class */ (function () {
                         if (_this.isWithinBounds(_this.axis.x.scrollbar.rect)) {
                             _this.onDragStart(e, 'x');
                         }
-                        else {
-                            _this.onTrackClick(e, 'x');
-                        }
                     }
                     if (isWithinTrackYBounds) {
                         _this.axis.y.scrollbar.rect =
                             _this.axis.y.scrollbar.el.getBoundingClientRect();
                         if (_this.isWithinBounds(_this.axis.y.scrollbar.rect)) {
                             _this.onDragStart(e, 'y');
-                        }
-                        else {
-                            _this.onTrackClick(e, 'y');
                         }
                     }
                 }
@@ -345,7 +338,6 @@ var SimpleBarCore = /** @class */ (function () {
             var elWindow = getElementWindow(_this.el);
             e.preventDefault();
             e.stopPropagation();
-            removeClasses(_this.el, _this.classNames.dragging);
             _this.onStopScrolling();
             elDocument.removeEventListener('mousemove', _this.drag, true);
             elDocument.removeEventListener('mouseup', _this.onEndDrag, true);
@@ -398,7 +390,7 @@ var SimpleBarCore = /** @class */ (function () {
         if (typeof this.el !== 'object' || !this.el.nodeName) {
             throw new Error("Argument passed to SimpleBar must be an HTML element instead of ".concat(this.el));
         }
-        this.onMouseMove = throttle(this._onMouseMove, 1000);
+        this.onMouseMove = throttle(this._onMouseMove, 64);
         this.onWindowResize = debounce(this._onWindowResize, 64, { leading: true });
         this.onStopScrolling = debounce(this._onStopScrolling, this.stopScrollDelay);
         this.onMouseEntered = debounce(this._onMouseEntered, this.stopScrollDelay);
@@ -486,8 +478,6 @@ var SimpleBarCore = /** @class */ (function () {
         this.contentEl =
             this.options.contentNode ||
                 this.el.querySelector(classNamesToQuery(this.classNames.contentEl));
-        this.offsetEl = this.el.querySelector(classNamesToQuery(this.classNames.offset));
-        this.maskEl = this.el.querySelector(classNamesToQuery(this.classNames.mask));
         this.placeholderEl = this.findChild(this.wrapperEl, classNamesToQuery(this.classNames.placeholder));
         this.heightAutoObserverWrapperEl = this.el.querySelector(classNamesToQuery(this.classNames.heightAutoObserverWrapperEl));
         this.heightAutoObserverEl = this.el.querySelector(classNamesToQuery(this.classNames.heightAutoObserverEl));
@@ -585,7 +575,6 @@ var SimpleBarCore = /** @class */ (function () {
             this.options.forceVisible === 'x' || this.options.forceVisible === true;
         this.axis.y.forceVisible =
             this.options.forceVisible === 'y' || this.options.forceVisible === true;
-        this.hideNativeScrollbar();
         // Set isOverflowing to false if scrollbar is not necessary (content is shorter than offset)
         var offsetForXScrollbar = this.axis.x.isOverflowing
             ? this.scrollbarWidth
@@ -714,18 +703,6 @@ var SimpleBarCore = /** @class */ (function () {
             this.axis[axis].scrollbar.isVisible = false;
         }
     };
-    SimpleBarCore.prototype.hideNativeScrollbar = function () {
-        if (!this.offsetEl)
-            return;
-        this.offsetEl.style[this.isRtl ? 'left' : 'right'] =
-            this.axis.y.isOverflowing || this.axis.y.forceVisible
-                ? "-".concat(this.scrollbarWidth, "px")
-                : '0px';
-        this.offsetEl.style.bottom =
-            this.axis.x.isOverflowing || this.axis.x.forceVisible
-                ? "-".concat(this.scrollbarWidth, "px")
-                : '0px';
-    };
     SimpleBarCore.prototype.onMouseMoveForAxis = function (axis) {
         if (axis === void 0) { axis = 'y'; }
         var currentAxis = this.axis[axis];
@@ -750,7 +727,6 @@ var SimpleBarCore = /** @class */ (function () {
         this.axis[axis].dragOffset =
             eventOffset - (((_a = scrollbar.rect) === null || _a === void 0 ? void 0 : _a[this.axis[axis].offsetAttr]) || 0);
         this.draggedAxis = axis;
-        addClasses(this.el, this.classNames.dragging);
         elDocument.addEventListener('mousemove', this.drag, true);
         elDocument.addEventListener('mouseup', this.onEndDrag, true);
         if (this.removePreventClickId === null) {
@@ -761,50 +737,6 @@ var SimpleBarCore = /** @class */ (function () {
             elWindow.clearTimeout(this.removePreventClickId);
             this.removePreventClickId = null;
         }
-    };
-    SimpleBarCore.prototype.onTrackClick = function (e, axis) {
-        var _this = this;
-        var _a, _b, _c, _d;
-        if (axis === void 0) { axis = 'y'; }
-        var currentAxis = this.axis[axis];
-        if (!this.options.clickOnTrack ||
-            !currentAxis.scrollbar.el ||
-            !this.contentWrapperEl)
-            return;
-        // Preventing the event's default to trigger click underneath
-        e.preventDefault();
-        var elWindow = getElementWindow(this.el);
-        this.axis[axis].scrollbar.rect =
-            currentAxis.scrollbar.el.getBoundingClientRect();
-        var scrollbar = this.axis[axis].scrollbar;
-        var scrollbarOffset = (_b = (_a = scrollbar.rect) === null || _a === void 0 ? void 0 : _a[this.axis[axis].offsetAttr]) !== null && _b !== void 0 ? _b : 0;
-        var hostSize = parseInt((_d = (_c = this.elStyles) === null || _c === void 0 ? void 0 : _c[this.axis[axis].sizeAttr]) !== null && _d !== void 0 ? _d : '0px', 10);
-        var scrolled = this.contentWrapperEl[this.axis[axis].scrollOffsetAttr];
-        var t = axis === 'y'
-            ? this.mouseY - scrollbarOffset
-            : this.mouseX - scrollbarOffset;
-        var dir = t < 0 ? -1 : 1;
-        var scrollSize = dir === -1 ? scrolled - hostSize : scrolled + hostSize;
-        var speed = 40;
-        var scrollTo = function () {
-            if (!_this.contentWrapperEl)
-                return;
-            if (dir === -1) {
-                if (scrolled > scrollSize) {
-                    scrolled -= speed;
-                    _this.contentWrapperEl[_this.axis[axis].scrollOffsetAttr] = scrolled;
-                    elWindow.requestAnimationFrame(scrollTo);
-                }
-            }
-            else {
-                if (scrolled < scrollSize) {
-                    scrolled += speed;
-                    _this.contentWrapperEl[_this.axis[axis].scrollOffsetAttr] = scrolled;
-                    elWindow.requestAnimationFrame(scrollTo);
-                }
-            }
-        };
-        scrollTo();
     };
     /**
      * Getter for content element
@@ -879,8 +811,6 @@ var SimpleBarCore = /** @class */ (function () {
         classNames: {
             contentEl: 'simplebar-content',
             contentWrapper: 'simplebar-content-wrapper',
-            offset: 'simplebar-offset',
-            mask: 'simplebar-mask',
             wrapper: 'simplebar-wrapper',
             placeholder: 'simplebar-placeholder',
             scrollbar: 'simplebar-scrollbar',
@@ -890,7 +820,6 @@ var SimpleBarCore = /** @class */ (function () {
             visible: 'visible',
             horizontal: 'horizontal',
             vertical: 'vertical',
-            dragging: 'simplebar-dragging',
             scrollable: 'simplebar-scrollable'
         },
         scrollableNode: null,
