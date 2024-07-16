@@ -803,7 +803,7 @@ var SimpleBarCore = /** @class */ (function () {
         classNames: {
             contentEl: 'simplebar-content',
             contentWrapper: 'simplebar-content-wrapper',
-            wrapper: 'simplebar-wrapper',
+            wrapper: 'simplebar-scroll-content',
             scrollbar: 'simplebar-scrollbar',
             track: 'simplebar-track',
             heightAutoObserverWrapperEl: 'simplebar-height-auto-observer-wrapper',
