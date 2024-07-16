@@ -136,6 +136,7 @@ export default class SimpleBarCore {
       horizontal: 'horizontal',
       vertical: 'vertical',
       scrollable: 'simplebar-scrollable',
+      dragging: 'dragging',
     },
     scrollableNode: null,
     contentNode: null,
@@ -766,6 +767,8 @@ export default class SimpleBarCore {
       eventOffset - (scrollbar.rect?.[this.axis[axis].offsetAttr] || 0);
     this.draggedAxis = axis;
 
+    addClasses(this.el, this.classNames.dragging);
+
     elDocument.addEventListener('mousemove', this.drag, true);
     elDocument.addEventListener('mouseup', this.onEndDrag, true);
     if (this.removePreventClickId === null) {
@@ -841,6 +844,7 @@ export default class SimpleBarCore {
     e.preventDefault();
     e.stopPropagation();
 
+    removeClasses(this.el, this.classNames.dragging);
     this.onStopScrolling();
 
     elDocument.removeEventListener('mousemove', this.drag, true);

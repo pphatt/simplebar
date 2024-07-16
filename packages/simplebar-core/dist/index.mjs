@@ -338,6 +338,7 @@ var SimpleBarCore = /** @class */ (function () {
             var elWindow = getElementWindow(_this.el);
             e.preventDefault();
             e.stopPropagation();
+            removeClasses(_this.el, _this.classNames.dragging);
             _this.onStopScrolling();
             elDocument.removeEventListener('mousemove', _this.drag, true);
             elDocument.removeEventListener('mouseup', _this.onEndDrag, true);
@@ -719,6 +720,7 @@ var SimpleBarCore = /** @class */ (function () {
         this.axis[axis].dragOffset =
             eventOffset - (((_a = scrollbar.rect) === null || _a === void 0 ? void 0 : _a[this.axis[axis].offsetAttr]) || 0);
         this.draggedAxis = axis;
+        addClasses(this.el, this.classNames.dragging);
         elDocument.addEventListener('mousemove', this.drag, true);
         elDocument.addEventListener('mouseup', this.onEndDrag, true);
         if (this.removePreventClickId === null) {
@@ -811,7 +813,8 @@ var SimpleBarCore = /** @class */ (function () {
             visible: 'visible',
             horizontal: 'horizontal',
             vertical: 'vertical',
-            scrollable: 'simplebar-scrollable'
+            scrollable: 'simplebar-scrollable',
+            dragging: 'dragging'
         },
         scrollableNode: null,
         contentNode: null,
