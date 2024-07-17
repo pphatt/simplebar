@@ -414,8 +414,8 @@ export default class SimpleBarCore {
     const elOverflowX = this.elStyles.overflowX;
     const elOverflowY = this.elStyles.overflowY;
 
-    this.contentEl.style.padding = `${this.elStyles.paddingTop} ${this.elStyles.paddingRight} ${this.elStyles.paddingBottom} ${this.elStyles.paddingLeft}`;
-    this.wrapperEl.style.margin = `-${this.elStyles.paddingTop} -${this.elStyles.paddingRight} -${this.elStyles.paddingBottom} -${this.elStyles.paddingLeft}`;
+    // this.contentEl.style.padding = `${this.elStyles.paddingTop} ${this.elStyles.paddingRight} ${this.elStyles.paddingBottom} ${this.elStyles.paddingLeft}`;
+    // this.wrapperEl.style.margin = `-${this.elStyles.paddingTop} -${this.elStyles.paddingRight} -${this.elStyles.paddingBottom} -${this.elStyles.paddingLeft}`;
 
     const contentElScrollHeight = this.contentEl.scrollHeight;
     const contentElScrollWidth = this.contentEl.scrollWidth;
