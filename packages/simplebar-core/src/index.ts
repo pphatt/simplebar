@@ -404,8 +404,7 @@ export default class SimpleBarCore {
       !this.heightAutoObserverEl ||
       !this.contentEl ||
       !this.contentWrapperEl ||
-      !this.wrapperEl ||
-      !this.placeholderEl
+      !this.wrapperEl
     )
       return;
 
@@ -432,10 +431,13 @@ export default class SimpleBarCore {
 
     this.contentWrapperEl.style.height = isHeightAuto ? 'auto' : '100%';
 
-    this.placeholderEl.style.width = isWidthAuto
-      ? `${contentElOffsetWidth || contentElScrollWidth}px`
-      : 'auto';
-    this.placeholderEl.style.height = `${contentElScrollHeight}px`;
+    // check this for some components need and some don't
+    if (this.placeholderEl) {
+      this.placeholderEl.style.width = isWidthAuto
+        ? `${contentElOffsetWidth || contentElScrollWidth}px`
+        : 'auto';
+      this.placeholderEl.style.height = `${contentElScrollHeight}px`;
+    }
 
     const contentWrapperElOffsetHeight = this.contentWrapperEl.offsetHeight;
 

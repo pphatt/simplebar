@@ -540,8 +540,7 @@ var SimpleBarCore = /** @class */ (function () {
         if (!this.heightAutoObserverEl ||
             !this.contentEl ||
             !this.contentWrapperEl ||
-            !this.wrapperEl ||
-            !this.placeholderEl)
+            !this.wrapperEl)
             return;
         var elWindow = getElementWindow(this.el);
         this.elStyles = elWindow.getComputedStyle(this.el);
@@ -557,10 +556,13 @@ var SimpleBarCore = /** @class */ (function () {
         var contentElScrollHeight = this.contentEl.scrollHeight;
         var contentElScrollWidth = this.contentEl.scrollWidth;
         this.contentWrapperEl.style.height = isHeightAuto ? 'auto' : '100%';
-        this.placeholderEl.style.width = isWidthAuto
-            ? "".concat(contentElOffsetWidth || contentElScrollWidth, "px")
-            : 'auto';
-        this.placeholderEl.style.height = "".concat(contentElScrollHeight, "px");
+        // check this for some components need and some don't
+        if (this.placeholderEl) {
+            this.placeholderEl.style.width = isWidthAuto
+                ? "".concat(contentElOffsetWidth || contentElScrollWidth, "px")
+                : 'auto';
+            this.placeholderEl.style.height = "".concat(contentElScrollHeight, "px");
+        }
         var contentWrapperElOffsetHeight = this.contentWrapperEl.offsetHeight;
         this.axis.x.isOverflowing =
             contentElOffsetWidth !== 0 && contentElScrollWidth > contentElOffsetWidth;
