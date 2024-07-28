@@ -483,6 +483,7 @@
             this.contentEl =
                 this.options.contentNode ||
                     this.el.querySelector(classNamesToQuery(this.classNames.contentEl));
+            this.placeholderEl = this.findChild(this.wrapperEl, classNamesToQuery(this.classNames.placeholder));
             this.heightAutoObserverWrapperEl = this.el.querySelector(classNamesToQuery(this.classNames.heightAutoObserverWrapperEl));
             this.heightAutoObserverEl = this.el.querySelector(classNamesToQuery(this.classNames.heightAutoObserverEl));
             this.axis.x.track.el = this.findChild(this.el, "".concat(classNamesToQuery(this.classNames.track)).concat(classNamesToQuery(this.classNames.horizontal)));
@@ -543,13 +544,15 @@
             if (!this.heightAutoObserverEl ||
                 !this.contentEl ||
                 !this.contentWrapperEl ||
-                !this.wrapperEl)
+                !this.wrapperEl ||
+                !this.placeholderEl)
                 return;
             var elWindow = getElementWindow(this.el);
             this.elStyles = elWindow.getComputedStyle(this.el);
             this.isRtl = this.elStyles.direction === 'rtl';
             var contentElOffsetWidth = this.contentEl.offsetWidth;
             var isHeightAuto = this.heightAutoObserverEl.offsetHeight <= 1;
+            var isWidthAuto = this.heightAutoObserverEl.offsetWidth <= 1 || contentElOffsetWidth > 0;
             var contentWrapperElOffsetWidth = this.contentWrapperEl.offsetWidth;
             var elOverflowX = this.elStyles.overflowX;
             var elOverflowY = this.elStyles.overflowY;
@@ -558,6 +561,10 @@
             var contentElScrollHeight = this.contentEl.scrollHeight;
             var contentElScrollWidth = this.contentEl.scrollWidth;
             this.contentWrapperEl.style.height = isHeightAuto ? 'auto' : '100%';
+            this.placeholderEl.style.width = isWidthAuto
+                ? "".concat(contentElOffsetWidth || contentElScrollWidth, "px")
+                : 'auto';
+            this.placeholderEl.style.height = "".concat(contentElScrollHeight, "px");
             var contentWrapperElOffsetHeight = this.contentWrapperEl.offsetHeight;
             this.axis.x.isOverflowing =
                 contentElOffsetWidth !== 0 && contentElScrollWidth > contentElOffsetWidth;
@@ -810,6 +817,7 @@
                 contentEl: 'simplebar-content',
                 contentWrapper: 'simplebar-content-wrapper',
                 wrapper: 'simplebar-scroll-content',
+                placeholder: 'simplebar-placeholder',
                 scrollbar: 'simplebar-scrollbar',
                 track: 'simplebar-track',
                 heightAutoObserverWrapperEl: 'simplebar-height-auto-observer-wrapper',

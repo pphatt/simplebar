@@ -128,6 +128,7 @@ export default class SimpleBarCore {
       contentEl: 'simplebar-content',
       contentWrapper: 'simplebar-content-wrapper',
       wrapper: 'simplebar-scroll-content',
+      placeholder: 'simplebar-placeholder',
       scrollbar: 'simplebar-scrollbar',
       track: 'simplebar-track',
       heightAutoObserverWrapperEl: 'simplebar-height-auto-observer-wrapper',
@@ -307,6 +308,11 @@ export default class SimpleBarCore {
       this.options.contentNode ||
       this.el.querySelector(classNamesToQuery(this.classNames.contentEl));
 
+    this.placeholderEl = this.findChild(
+      this.wrapperEl,
+      classNamesToQuery(this.classNames.placeholder),
+    );
+
     this.heightAutoObserverWrapperEl = this.el.querySelector(
       classNamesToQuery(this.classNames.heightAutoObserverWrapperEl),
     );
@@ -398,7 +404,8 @@ export default class SimpleBarCore {
       !this.heightAutoObserverEl ||
       !this.contentEl ||
       !this.contentWrapperEl ||
-      !this.wrapperEl
+      !this.wrapperEl ||
+      !this.placeholderEl
     )
       return;
 
@@ -409,6 +416,9 @@ export default class SimpleBarCore {
     const contentElOffsetWidth = this.contentEl.offsetWidth;
 
     const isHeightAuto = this.heightAutoObserverEl.offsetHeight <= 1;
+    const isWidthAuto =
+      this.heightAutoObserverEl.offsetWidth <= 1 || contentElOffsetWidth > 0;
+
     const contentWrapperElOffsetWidth = this.contentWrapperEl.offsetWidth;
 
     const elOverflowX = this.elStyles.overflowX;
@@ -421,6 +431,11 @@ export default class SimpleBarCore {
     const contentElScrollWidth = this.contentEl.scrollWidth;
 
     this.contentWrapperEl.style.height = isHeightAuto ? 'auto' : '100%';
+
+    this.placeholderEl.style.width = isWidthAuto
+      ? `${contentElOffsetWidth || contentElScrollWidth}px`
+      : 'auto';
+    this.placeholderEl.style.height = `${contentElScrollHeight}px`;
 
     const contentWrapperElOffsetHeight = this.contentWrapperEl.offsetHeight;
 
