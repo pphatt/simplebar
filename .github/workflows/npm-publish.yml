@@ -4,10 +4,9 @@ on:
     workflows: [ CI ]
     branches: [ main ]
     types: [ completed ]
-  on:
-    push:
-      branches:
-        - master
+  push:
+    branches:
+      - master
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
