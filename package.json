@@ -2,7 +2,7 @@
   "name": "@tienphat0809/simplebar",
   "type": "module",
   "version": "1.0.54",
-  "private": true,
+  "private": false,
   "packageManager": "pnpm@9.1.4",
   "workspaces": {
     "packages": [
