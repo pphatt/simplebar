@@ -1,5 +1,5 @@
 {
-  "name": "simplebar",
+  "name": "@tienphat0809/simplebar",
   "version": "1.0.54",
   "private": true,
   "workspaces": {
@@ -13,17 +13,16 @@
     ]
   },
   "scripts": {
-    "build": "lerna exec yarn build",
-    "test": "lerna run test",
-    "release": "yarn build && yarn test && auto changelog && lerna publish --pre-dist-tag beta --preid beta",
-    "start": "lerna exec --scope=simplebar yarn start",
-    "dev": "lerna exec --scope=simplebar yarn dev"
+    "build": "pnpm build",
+    "test": "pnpm test",
+    "release": "pnpm typecheck && pnpm lint && pnpm build && changeset publish"
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
+    "@changesets/cli": "^2.27.7",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
@@ -49,7 +48,6 @@
     "jest-cli": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
     "jest-puppeteer": "^6.2.0",
-    "lerna": "^6.4.1",
     "lint-staged": "^8.1.5",
     "minify": "^9.1.0",
     "prettier": "^2.0.5",
@@ -67,10 +65,5 @@
   },
   "resolutions": {
     "@types/react": "18.0.26"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lerna run --concurrency 1 --stream precommit"
-    }
   }
 }
