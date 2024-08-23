@@ -1,0 +1,44 @@
+name: Publish packages to npm
+on:
+  workflow_run:
+    workflows: [ CI ]
+    branches: [ main ]
+    types: [ completed ]
+  on:
+    push:
+      branches:
+        - master
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Use pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ matrix.pnpm-version }}
+      - name: Use Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Publish to npm
+        uses: changesets/action@v1
+        with:
+          commit: "chore(packages): publish packages"
+          title: "chore(packages): publish packages"
+          publish: pnpm publish-packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
