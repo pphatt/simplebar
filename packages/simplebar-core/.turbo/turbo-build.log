@@ -1,0 +1,10 @@
+
+> simplebar-core@1.2.7 build C:\Dev\Typescript\simplebar\packages\simplebar-core
+> rollup -c
+
+[36m
+[1msrc/index.ts[22m → [1m./dist/index.mjs[22m...[39m
+[32mcreated [1m./dist/index.mjs[22m in [1m2.1s[22m[39m
+[36m
+[1msrc/index.ts[22m → [1m./dist/index.cjs[22m...[39m
+[32mcreated [1m./dist/index.cjs[22m in [1m1.7s[22m[39m

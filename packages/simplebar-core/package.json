@@ -25,7 +25,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "serve -s demo",
-    "build": "rollup -c && cp src/simplebar.css dist/simplebar.css",
+    "build": "rollup -c",
     "dev": "rollup -c -w --environment BUILD:development",
     "test": "yarn test:unit && yarn test:e2e",
     "test:unit": "jest -c jest-unit.config.js",

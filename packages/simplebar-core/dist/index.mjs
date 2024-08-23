@@ -3,7 +3,7 @@
  * Scrollbars, simpler.
  * https://grsmto.github.io/simplebar/
  *
- * Made by Adrien Denat from a fork by Jonathan Nicol
+ * Made by Adrien Denat from a fork by Jonathan Nicol, TienPhat
  * Under MIT License
  */
 
@@ -23,6 +23,8 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
+/* global Reflect, Promise, SuppressedError, Symbol */
+
 
 var __assign = function() {
     __assign = Object.assign || function __assign(t) {
@@ -33,6 +35,11 @@ var __assign = function() {
         return t;
     };
     return __assign.apply(this, arguments);
+};
+
+typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
+    var e = new Error(message);
+    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
 };
 
 function getElementWindow$1(element) {
