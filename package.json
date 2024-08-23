@@ -13,9 +13,9 @@
     ]
   },
   "scripts": {
-    "build": "pnpm build",
+    "build": "rollup -c",
     "test": "pnpm test",
-    "release": "pnpm typecheck && pnpm lint && pnpm build && changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",
